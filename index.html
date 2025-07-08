@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shooting Game</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="start-screen" class="overlay">
+    <h1>Shooting Game</h1>
+    <button id="start-button">Start Game</button>
+  </div>
+  <div id="game-container" class="hidden">
+    <canvas id="particle-canvas"></canvas>
+    <img id="player" src="phaser-game/assets/bone.png" alt="Player Bone" />
+    <div id="score">Score: 0</div>
+    <div id="lives">Lives: 3</div>
+    <div id="level">Level: 1</div>
+    <div id="powerup">Power-up: None</div>
+    <div id="audio-controls">
+      <button id="toggle-music">Pause Music</button>
+      <button id="pause-game">Pause</button>
+      <button id="resume-game" disabled>Resume</button>
+      <button id="exit-game">Exit</button>
+      <label for="music-volume">Music Volume</label>
+      <input type="range" id="music-volume" min="0" max="1" step="0.01" value="0.3" />
+      <label for="sfx-volume">SFX Volume</label>
+      <input type="range" id="sfx-volume" min="0" max="1" step="0.01" value="1" />
+    </div>
+  </div>
+  <div id="game-over-screen" class="overlay hidden">
+    <h1>Game Over</h1>
+    <p id="final-score"></p>
+    <button id="restart-button">Restart Game</button>
+  </div>
+  <audio id="bg-music" loop src="audio/bg-music.mp3"></audio>
+  <audio id="shoot-sound" src="audio/shoot-sound.mp3"></audio>
+  <audio id="hit-sound" src="audio/hit-sound.mp3"></audio>
+  <audio id="powerup-sound" src="audio/powerup-sound.mp3"></audio>
+  <script src="script.js"></script>
+</body>
+</html>

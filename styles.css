@@ -1,0 +1,918 @@
+/* Basic reset and styling */
+/* Modern 2025 UI Design */
+/* Incremental redesign part 1: body and html styles */
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: linear-gradient(135deg, #141e30, #243b55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #f0f4f8;
+  overflow: hidden;
+  position: relative;
+  transition: background-color 0.5s ease;
+  user-select: none;
+}
+
+#game-container {
+  position: relative;
+  width: 85vw;
+  max-width: 1000px;
+  height: 65vw;
+  max-height: 650px;
+  background: #1e293b;
+  border-radius: 30px;
+  box-shadow: 0 8px 24px rgba(0, 255, 255, 0.3);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px;
+  transition: box-shadow 0.3s ease;
+}
+
+#game-container:hover {
+  box-shadow: 0 12px 36px rgba(0, 255, 255, 0.5);
+}
+
+#start-screen, #game-over-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(30, 41, 59, 0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #00ffff;
+  z-index: 30;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  border-radius: 30px;
+  box-shadow: 0 0 50px #00ffff inset;
+}
+
+#start-screen.hidden, #game-over-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#start-screen h1, #game-over-screen h1 {
+  font-size: 5rem;
+  margin-bottom: 30px;
+  text-shadow: 0 0 30px #00ffff;
+  font-weight: 900;
+  letter-spacing: 4px;
+  font-family: 'Inter', sans-serif;
+}
+
+#start-screen button, #game-over-screen button {
+  font-size: 2.2rem;
+  padding: 20px 60px;
+  border: none;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #00ffff, #0077ff);
+  color: #000;
+  cursor: pointer;
+  box-shadow: 0 0 30px #00ffff;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-weight: 900;
+  letter-spacing: 2px;
+  font-family: 'Inter', sans-serif;
+}
+
+#start-screen button:hover, #game-over-screen button:hover {
+  background-color: #0055cc;
+  transform: scale(1.15);
+}
+
+#player {
+  position: absolute;
+  bottom: 25px;
+  left: 300px;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(45deg, #00ffcc, #0077cc);
+  border-radius: 25px;
+  box-shadow: 0 0 35px #00ffcc, 0 0 70px #00ffcc inset;
+  transition: box-shadow 0.3s ease;
+  z-index: 20;
+}
+
+#player:hover {
+  box-shadow: 0 0 50px #00ffff, 0 0 90px #00ffff inset;
+}
+
+.bullet {
+  position: absolute;
+  width: 12px;
+  height: 24px;
+  background: radial-gradient(circle, #00ffff, #005577);
+  border-radius: 6px;
+  box-shadow: 0 0 20px #00ffff;
+  animation: bullet-glow 1s infinite alternate;
+  z-index: 15;
+}
+
+@keyframes bullet-glow {
+  from { box-shadow: 0 0 20px #00ffff; }
+  to { box-shadow: 0 0 40px #00ffff; }
+}
+
+.target {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle, #ff00ff, #800080);
+  border-radius: 25%;
+  box-shadow: 0 0 40px #ff00ff, 0 0 80px #ff00ff inset;
+  animation: pulse 2s infinite;
+  z-index: 15;
+}
+
+.target.orange {
+  background: radial-gradient(circle, #ffaa00, #aa6600);
+  box-shadow: 0 0 40px #ffaa00, 0 0 80px #aa6600 inset;
+}
+
+.target.yellow {
+  background: radial-gradient(circle, #00ffff, #008080);
+  box-shadow: 0 0 40px #00ffff, 0 0 80px #00ffff inset;
+}
+
+.target.blue {
+  background: radial-gradient(circle, #0000ff, #000066);
+  box-shadow: 0 0 40px #0000ff, 0 0 80px #000066 inset;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+#score, #lives, #level, #powerup {
+  position: absolute;
+  top: 15px;
+  font-size: 28px;
+  font-weight: 900;
+  color: #00ffff;
+  text-shadow: 0 0 15px #00ffff, 0 0 30px #00ffff;
+  font-family: 'Inter', sans-serif;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+#score {
+  left: 20px;
+}
+
+#lives {
+  left: 180px;
+}
+
+#level {
+  left: 360px;
+}
+
+#powerup {
+  left: 540px;
+}
+
+#score.animate {
+  transform: scale(1.5);
+  color: #ffff00;
+}
+
+#lives.animate {
+  transform: scale(1.5);
+  color: #ff0000;
+}
+
+#level.animate {
+  transform: scale(1.5);
+  color: #00ff00;
+}
+
+#powerup.animate {
+  transform: scale(1.5);
+  color: #00ffff;
+}
+
+#audio-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: #00ffff;
+  font-size: 18px;
+  user-select: none;
+  -webkit-user-select: none;
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+#audio-controls button {
+  background: linear-gradient(135deg, #00ffff, #0077ff);
+  border: none;
+  border-radius: 15px;
+  padding: 12px 24px;
+  cursor: pointer;
+  box-shadow: 0 0 25px #00ffff;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #000;
+}
+
+#audio-controls button:hover {
+  background-color: #0055cc;
+  transform: scale(1.15);
+}
+
+#audio-controls label {
+  margin-left: 20px;
+  margin-right: 15px;
+}
+
+#audio-controls input[type="range"] {
+  vertical-align: middle;
+  cursor: pointer;
+  width: 140px;
+}
+
+body.dark-mode {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+}
+
+#game-container {
+  position: relative;
+  width: 85vw;
+  max-width: 960px;
+  height: 65vw;
+  max-height: 640px;
+  background: #1f1f1f;
+  border-radius: 30px;
+  box-shadow: 0 0 40px rgba(0, 255, 255, 0.4);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  transition: box-shadow 0.3s ease;
+}
+
+#game-container:hover {
+  box-shadow: 0 0 60px rgba(0, 255, 255, 0.6);
+}
+
+#start-screen, #game-over-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(30, 30, 30, 0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #00ffff;
+  z-index: 30;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  border-radius: 20px;
+  box-shadow: 0 0 50px #00ffff inset;
+}
+
+#start-screen.hidden, #game-over-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#start-screen h1, #game-over-screen h1 {
+  font-size: 4.5rem;
+  margin-bottom: 25px;
+  text-shadow: 0 0 25px #00ffff;
+  font-weight: 900;
+  letter-spacing: 3px;
+}
+
+#start-screen button, #game-over-screen button {
+  font-size: 2rem;
+  padding: 18px 50px;
+  border: none;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #00ffff, #0077ff);
+  color: #000;
+  cursor: pointer;
+  box-shadow: 0 0 25px #00ffff;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+#start-screen button:hover, #game-over-screen button:hover {
+  background-color: #0055cc;
+  transform: scale(1.1);
+}
+
+#player {
+  position: absolute;
+  bottom: 20px;
+  left: 280px;
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(45deg, #00ffcc, #0077cc);
+  border-radius: 20px;
+  box-shadow: 0 0 25px #00ffcc, 0 0 50px #00ffcc inset;
+  transition: box-shadow 0.3s ease;
+  z-index: 20;
+}
+
+#player:hover {
+  box-shadow: 0 0 40px #00ffff, 0 0 70px #00ffff inset;
+}
+
+.bullet {
+  position: absolute;
+  width: 10px;
+  height: 20px;
+  background: radial-gradient(circle, #00ffff, #005577);
+  border-radius: 5px;
+  box-shadow: 0 0 15px #00ffff;
+  animation: bullet-glow 1s infinite alternate;
+  z-index: 15;
+}
+
+@keyframes bullet-glow {
+  from { box-shadow: 0 0 15px #00ffff; }
+  to { box-shadow: 0 0 30px #00ffff; }
+}
+
+.target {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  background: radial-gradient(circle, #ff00ff, #800080);
+  border-radius: 20%;
+  box-shadow: 0 0 35px #ff00ff, 0 0 70px #ff00ff inset;
+  animation: pulse 2s infinite;
+  z-index: 15;
+}
+
+.target.orange {
+  background: radial-gradient(circle, #ffaa00, #aa6600);
+  box-shadow: 0 0 35px #ffaa00, 0 0 70px #aa6600 inset;
+}
+
+.target.yellow {
+  background: radial-gradient(circle, #00ffff, #008080);
+  box-shadow: 0 0 35px #00ffff, 0 0 70px #00ffff inset;
+}
+
+.target.blue {
+  background: radial-gradient(circle, #0000ff, #000066);
+  box-shadow: 0 0 35px #0000ff, 0 0 70px #000066 inset;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+#score, #lives, #level, #powerup {
+  position: absolute;
+  top: 10px;
+  font-size: 24px;
+  font-weight: 800;
+  color: #00ffff;
+  text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+#score {
+  left: 15px;
+}
+
+#lives {
+  left: 160px;
+}
+
+#level {
+  left: 320px;
+}
+
+#powerup {
+  left: 480px;
+}
+
+#score.animate {
+  transform: scale(1.4);
+  color: #ffff00;
+}
+
+#lives.animate {
+  transform: scale(1.4);
+  color: #ff0000;
+}
+
+#level.animate {
+  transform: scale(1.4);
+  color: #00ff00;
+}
+
+#powerup.animate {
+  transform: scale(1.4);
+  color: #00ffff;
+}
+
+#audio-controls {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  color: #00ffff;
+  font-size: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+#audio-controls button {
+  background: linear-gradient(135deg, #00ffff, #0077ff);
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  box-shadow: 0 0 20px #00ffff;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #000;
+}
+
+#audio-controls button:hover {
+  background-color: #0055cc;
+  transform: scale(1.1);
+}
+
+#audio-controls label {
+  margin-left: 15px;
+  margin-right: 10px;
+}
+
+#audio-controls input[type="range"] {
+  vertical-align: middle;
+  cursor: pointer;
+  width: 120px;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.4);
+  z-index: -1;
+}
+
+#start-screen, #game-over-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #0ff;
+  z-index: 30;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+  border-radius: 15px;
+  box-shadow: 0 0 30px #0ff inset;
+}
+
+#start-screen h1, #game-over-screen h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  text-shadow: 0 0 20px #0ff;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+#start-screen button, #game-over-screen button {
+  font-size: 1.8rem;
+  padding: 15px 40px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #00ffff, #0077ff);
+  color: #000;
+  cursor: pointer;
+  box-shadow: 0 0 20px #00ffff;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+#start-screen button:hover, #game-over-screen button:hover {
+  background-color: #0055cc;
+  transform: scale(1.05);
+}
+
+#game-container {
+  position: relative;
+  width: 80vw;
+  max-width: 900px;
+  height: 60vw;
+  max-height: 600px;
+  background: linear-gradient(135deg, #111, #222);
+  border: 5px solid #00ffff;
+  border-radius: 25px;
+  box-shadow: 0 0 50px #00ffff inset, 0 0 60px #00ffff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+}
+
+#player {
+  position: absolute;
+  bottom: 20px;
+  left: 280px;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle at center, #00f, #004080);
+  border-radius: 50%;
+  box-shadow: 0 0 30px #00f, 0 0 60px #00f inset;
+  transition: box-shadow 0.3s ease;
+  z-index: 20;
+}
+
+#player:hover {
+  box-shadow: 0 0 50px #0ff, 0 0 80px #0ff inset;
+}
+
+.bullet {
+  position: absolute;
+  width: 8px;
+  height: 16px;
+  background: radial-gradient(circle at center, #0ff, #008080);
+  border-radius: 4px;
+  box-shadow: 0 0 20px #0ff;
+  animation: bullet-glow 1s infinite alternate;
+  z-index: 15;
+}
+
+@keyframes bullet-glow {
+  from { box-shadow: 0 0 20px #0ff; }
+  to { box-shadow: 0 0 40px #0ff; }
+}
+
+.target {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle at center, #f0f, #800080);
+  border-radius: 50%;
+  box-shadow: 0 0 30px #f0f, 0 0 60px #f0f inset;
+  animation: pulse 2s infinite;
+  z-index: 15;
+}
+
+.target.orange {
+  background: radial-gradient(circle at center, #ff0, #a08000);
+  box-shadow: 0 0 30px #ff0, 0 0 60px #ff0 inset;
+}
+
+.target.yellow {
+  background: radial-gradient(circle at center, #0ff, #008080);
+  box-shadow: 0 0 30px #0ff, 0 0 60px #0ff inset;
+}
+
+.target.blue {
+  background: radial-gradient(circle at center, #00f, #004080);
+  box-shadow: 0 0 30px #00f, 0 0 60px #00f inset;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+#score, #lives, #level, #powerup {
+  position: absolute;
+  top: 5px;
+  font-size: 22px;
+  font-weight: 900;
+  color: #0ff;
+  text-shadow: 0 0 8px #0ff, 0 0 15px #0ff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+#score {
+  left: 15px;
+}
+
+#lives {
+  left: 160px;
+}
+
+#level {
+  left: 300px;
+}
+
+#powerup {
+  left: 460px;
+}
+
+#score.animate {
+  transform: scale(1.4);
+  color: #ff0;
+}
+
+#lives.animate {
+  transform: scale(1.4);
+  color: #f00;
+}
+
+#level.animate {
+  transform: scale(1.4);
+  color: #0f0;
+}
+
+#powerup.animate {
+  transform: scale(1.4);
+  color: #0ff;
+}
+
+#audio-controls {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  color: #0ff;
+  font-size: 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#audio-controls button {
+  background: linear-gradient(135deg, #00ffff, #0077ff);
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  box-shadow: 0 0 15px #00ffff;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #000;
+}
+
+#audio-controls button:hover {
+  background-color: #0055cc;
+  transform: scale(1.05);
+}
+
+#audio-controls label {
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+#audio-controls input[type="range"] {
+  vertical-align: middle;
+  cursor: pointer;
+  width: 100px;
+}
+
+#game-container {
+  position: relative;
+  width: 80vw;
+  max-width: 800px;
+  height: 60vw;
+  max-height: 600px;
+  background: linear-gradient(135deg, #222, #444);
+  border: 3px solid #0ff;
+  border-radius: 15px;
+  box-shadow: 0 0 20px #0ff inset, 0 0 30px #0ff;
+  overflow: hidden;
+}
+
+#particle-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+#player {
+  position: absolute;
+  bottom: 20px;
+  left: 280px;
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(45deg, #0f0, #0a0);
+  border-radius: 15px;
+  box-shadow: 0 0 15px #0f0, 0 0 30px #0f0 inset;
+  transition: box-shadow 0.3s ease;
+  z-index: 20;
+}
+
+#player:hover {
+  box-shadow: 0 0 25px #0ff, 0 0 40px #0ff inset;
+}
+
+.bullet {
+  position: absolute;
+  width: 8px;
+  height: 16px;
+  background: radial-gradient(circle, #ff0, #aa0);
+  border-radius: 4px;
+  box-shadow: 0 0 10px #ff0;
+  animation: bullet-glow 1s infinite alternate;
+  z-index: 15;
+}
+
+@keyframes bullet-glow {
+  from { box-shadow: 0 0 10px #ff0; }
+  to { box-shadow: 0 0 20px #ff0; }
+}
+
+.target {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle, #f00, #800);
+  border-radius: 50%;
+  box-shadow: 0 0 15px #f00, 0 0 30px #f00 inset;
+  animation: pulse 2s infinite;
+  z-index: 15;
+}
+
+.target.orange {
+  background: radial-gradient(circle, #fa0, #a60);
+  box-shadow: 0 0 15px #fa0, 0 0 30px #fa0 inset;
+}
+
+.target.yellow {
+  background: radial-gradient(circle, #ff0, #aa0);
+  box-shadow: 0 0 15px #ff0, 0 0 30px #ff0 inset;
+}
+
+.target.blue {
+  background: radial-gradient(circle, #00f, #006);
+  box-shadow: 0 0 15px #00f, 0 0 30px #00f inset;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+#score, #lives, #level, #powerup {
+  position: absolute;
+  top: 5px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #0ff;
+  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+#score {
+  left: 10px;
+}
+
+#lives {
+  left: 140px;
+}
+
+#level {
+  left: 260px;
+}
+
+#powerup {
+  left: 400px;
+}
+
+#score.animate {
+  transform: scale(1.3);
+  color: #ff0;
+}
+
+#lives.animate {
+  transform: scale(1.3);
+  color: #f00;
+}
+
+#level.animate {
+  transform: scale(1.3);
+  color: #0f0;
+}
+
+#powerup.animate {
+  transform: scale(1.3);
+  color: #0ff;
+}
+
+#start-screen, #game-over-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10, 10, 10, 0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #0ff;
+  z-index: 30;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+#start-screen.hidden, #game-over-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#start-screen h1, #game-over-screen h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  text-shadow: 0 0 20px #0ff;
+}
+
+#start-screen button, #game-over-screen button {
+  font-size: 1.5rem;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 10px;
+  background: #0ff;
+  color: #000;
+  cursor: pointer;
+  box-shadow: 0 0 15px #0ff;
+  transition: background-color 0.3s ease;
+}
+
+#start-screen button:hover, #game-over-screen button:hover {
+  background-color: #0cc;
+}
+
+#audio-controls {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: #0ff;
+  font-size: 14px;
+  user-select: none;
+  z-index: 25;
+}
+
+#audio-controls button {
+  background: #0ff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 10px #0ff;
+  transition: background-color 0.3s ease;
+}
+
+#audio-controls button:hover {
+  background-color: #0cc;
+}
+
+#audio-controls label {
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+#audio-controls input[type="range"] {
+  vertical-align: middle;
+  cursor: pointer;
+}
